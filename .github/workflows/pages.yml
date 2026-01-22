@@ -31,9 +31,19 @@ jobs:
           CI: false
         run: npm run build -- --base=./
 
-      - name: Copy static HTML pages into dist
+      - name: Copy build assets and static files into dist
         run: |
-          echo "Copying static HTML pages into dist/"
+          echo "Copying build assets and static files into dist/"
+          mkdir -p dist/src
+          css=$(ls dist/assets/*.css | head -n 1 || true)
+          js=$(ls dist/assets/*.js | head -n 1 || true)
+          if [ -n "$css" ]; then cp "$css" dist/src/main.css; fi
+          if [ -n "$js" ]; then cp "$js" dist/src/main.js; fi
+          # copy public assets
+          cp public/logo.svg dist/logo.svg || true
+          cp public/favicon.svg dist/favicon.svg || true
+          cp public/apple-touch-icon.svg dist/apple-touch-icon.svg || true
+          # copy static html files
           for f in *.html; do
             if [ "$f" != "index.html" ]; then
               cp "$f" dist/
