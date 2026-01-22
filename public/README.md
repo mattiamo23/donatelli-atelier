@@ -1,1 +1,0 @@
-Metti qui il tuo logo come `logo.png` (formato PNG trasparente preferibile). Ho usato il logo che hai caricato nella chat; copia il file qui con questo nome per vederlo sul sito.
