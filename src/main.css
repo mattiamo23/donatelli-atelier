@@ -1,0 +1,274 @@
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --taupe: #B08A76;
+    --deep: #8D6E5A;
+    --cream: #F6F3F0; /* leggermente avorio, non bianco */
+    --cream-mobile: #EFE9E6; /* leggermente più caldo per mobile */
+    --rose: #DCC6B9;
+    --charcoal: #0F1111;
+  }
+  
+  /* Global typography: Manrope for body and headings */
+  body, h1, h2, h3, h4, h5, h6, p, a, button, li { font-family: 'Manrope', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; }
+  h1, h2, h3 { font-weight: 600; letter-spacing: -0.01em; }
+
+
+
+  /* Service card titles: elegant, modern, subtle hover */
+  .service-title {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 600;
+    font-size: 1.25rem;
+    color: var(--deep);
+    letter-spacing: -0.02em;
+    position: relative;
+    transition: color .3s ease, transform .3s ease;
+  }
+  .service-title:hover { 
+    color: var(--taupe); 
+  }
+}
+
+
+/* Intro animation */
+#intro { transition: opacity 1000ms cubic-bezier(.2,.9,.2,1), visibility 1000ms cubic-bezier(.2,.9,.2,1), filter 1000ms ease; pointer-events: none; background-color: white; will-change: opacity, filter; }
+#intro.fade-out { opacity: 0; visibility: hidden; transition-delay: 120ms; filter: blur(6px) saturate(.95); }
+#introLogo { transition: opacity 900ms ease, transform 900ms cubic-bezier(.2,.9,.2,1); opacity: 1; transform: scale(1); transform-origin: center; will-change: opacity, transform; }
+
+/* Simple light styling */
+.shadow-md { box-shadow: 0 6px 18px rgba(20,20,20,0.06); }
+
+/* Contact card */
+.contact-card { border-left: 4px solid var(--taupe); padding-left: 1rem; }
+.contact-card .contact-item { display: flex; gap: 1rem; align-items: flex-start; }
+.contact-card .contact-icon { color: var(--taupe); flex: 0 0 1.25rem; }
+.contact-card address { line-height: 1.25; }
+.contact-card a { color: var(--deep); font-weight:600; text-decoration: none; }
+.contact-card a:hover { text-decoration: underline; }
+
+/* Link & buttons */
+a { color: var(--charcoal); transition: color .18s ease; }
+a:hover { color: var(--deep); }
+
+.btn-primary {
+  display: inline-block;
+  background: var(--taupe);
+  color: white;
+  font-weight: 600;
+  transition: background .18s ease, transform .12s ease, box-shadow .12s ease;
+}
+.btn-primary:hover { background: var(--deep); transform: translateY(-2px); }
+.btn-primary:active { transform: translateY(0); }
+
+/* Booking buttons: more elegant and roomy */
+.btn-book {
+  font-family: 'Manrope', sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  padding: 0.85rem 1.6rem; /* more space between border and text */
+  font-size: 1rem;
+  border-radius: 9999px; /* pill */
+  border: 2.5px solid var(--deep); /* thicker frame */
+  background: linear-gradient(180deg, var(--taupe), var(--taupe));
+  color: white;
+  box-shadow: 0 6px 18px rgba(14,12,11,0.06);
+  transition: transform .18s cubic-bezier(.2,.9,.2,1), background .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+.btn-book:hover {
+  background: var(--deep);
+  border-color: var(--deep);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(14,12,11,0.10);
+}
+.btn-book:focus {
+  outline: 3px solid rgba(176,138,118,0.12);
+  outline-offset: 3px;
+}
+.btn-book[disabled], .btn-book:disabled { opacity: 0.6; transform: none; }
+
+/* Small responsive hero touch */
+@media (min-width: 768px) {
+  #introLogo { width: 20rem; }
+}
+
+/* Parallax target */
+.hero-parallax { 
+  will-change: transform;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  left: 5px;
+}
+
+/* Hero subtitle: closer to logo, darker and slightly bolder */
+.hero-subtitle {
+  color: var(--charcoal);
+  margin-top: -0.5rem;
+  font-weight: 500;
+  font-size: 1.0625rem; /* 17px */
+  line-height: 1.4;
+  transition: color .15s ease, transform .12s ease;
+}
+@media (max-width: 640px) {
+  .hero-subtitle { margin-top: -0.25rem; font-size: 1rem; }
+}
+
+/* Reduce transform jitter on mobile */
+@media (max-width: 640px) {
+  .hero-parallax { transition: transform 1.6s ease-in-out; }
+}
+
+/* Nav underline gradient */
+header nav ul li a { position: relative; padding-bottom: .25rem; }
+
+/* Logo - remove white background */
+header img[src*="logo"],
+#heroLogo,
+#introLogo,
+footer img[src*="logo"] {
+  mix-blend-mode: multiply;
+  filter: contrast(1.1);
+}
+
+header nav ul li a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  height: 2px;
+  width: 0;
+  background: linear-gradient(90deg, var(--taupe), var(--rose));
+  transition: width .28s ease;
+}
+header nav ul li a:hover::after { width: 100%; }
+
+/* Header subtle gradient */
+header { background: linear-gradient(180deg, rgba(176,138,118,0.03), transparent); }
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .page-transition, .hero-parallax, .btn-primary, header nav ul li a::after, .transition-active main { transition: none !important; filter: none !important; backdrop-filter: none !important; }
+}
+
+/* Modern additions - Scroll reveal animation */
+@keyframes scrollReveal {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.scroll-reveal {
+  animation: scrollReveal 0.8s cubic-bezier(0.2, 0.9, 0.2, 1) forwards;
+  opacity: 0;
+}
+
+/* Hero pattern decorativo */
+.hero-pattern {
+  background-image: 
+    repeating-linear-gradient(45deg, var(--taupe) 0px, var(--taupe) 1px, transparent 1px, transparent 20px),
+    repeating-linear-gradient(-45deg, var(--rose) 0px, var(--rose) 1px, transparent 1px, transparent 20px);
+}
+
+/* Hero title */
+.hero-title {
+  animation: scrollReveal 0.8s cubic-bezier(0.2, 0.9, 0.2, 1) 0.2s forwards;
+  opacity: 0;
+  background: linear-gradient(135deg, var(--deep), var(--taupe));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Service cards hover glow effect */
+.service-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(176, 138, 118, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.service-card:hover::before {
+  left: 100%;
+}
+
+/* Gradient radial utility */
+.bg-gradient-radial {
+  background: radial-gradient(circle, var(--tw-gradient-stops));
+}
+
+/* Enhanced shadows */
+.shadow-xl {
+  box-shadow: 0 20px 50px rgba(141, 110, 90, 0.15), 0 10px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* Backdrop blur support */
+@supports (backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px)) {
+  .backdrop-blur-sm {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+}
+
+/* Modern lightbox styling */
+.lightbox-overlay {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  animation: fadeIn 0.3s ease;
+  cursor: zoom-out;
+}
+
+.lightbox-overlay img {
+  animation: zoomIn 0.3s cubic-bezier(0.2, 0.9, 0.2, 1);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes zoomIn {
+  from { 
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to { 
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes gentlePulse {
+  0%, 100% { 
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% { 
+    transform: scale(1.02);
+    opacity: 0.95;
+  }
+}
