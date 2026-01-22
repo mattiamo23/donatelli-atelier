@@ -31,6 +31,15 @@ jobs:
           CI: false
         run: npm run build -- --base=./
 
+      - name: Copy static HTML pages into dist
+        run: |
+          echo "Copying static HTML pages into dist/"
+          for f in *.html; do
+            if [ "$f" != "index.html" ]; then
+              cp "$f" dist/
+            fi
+          done
+
       - name: Deploy to gh-pages branch
         uses: peaceiris/actions-gh-pages@v4
         with:
